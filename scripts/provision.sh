@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+# make sure apt database is up-to date
 apt-get update
-apt-get install -y golang-1.10
 
+# install golang-1.10
+apt-get install -y golang-1.10
 
 grep 'GOPATH|GOROOT' ~/.bash_profile &>/dev/null || {
   sudo mkdir -p ~/go
@@ -23,3 +25,15 @@ grep 'GOPATH|GOROOT' /home/vagrant/.bash_profile &>/dev/null || {
   sudo chown -R vagrant:  /home/vagrant
 }
 
+
+# install terraform
+which wget unzip &>/dev/null || {
+  apt-get install -y wget unzip
+}
+
+which terraform &>/dev/null || {
+  pushd /usr/local/bin
+  wget https://releases.hashicorp.com/terraform/0.11.10/terraform_0.11.10_linux_amd64.zip
+  unzip terraform_0.11.10_linux_amd64.zip
+  popd
+}
